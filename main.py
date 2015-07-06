@@ -12,5 +12,4 @@ if __name__ == '__main__':
     except IndexError:
         path = os.getcwd()
 
-    print path
     export.export(auth_token, path)

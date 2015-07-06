@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 
+import platform
 import re
 import string
 
@@ -11,24 +12,28 @@ def export(auth_token, path=None):
 
     bookmarks = pb.bookmarks()
 
-    x = 0
     for bookmark in bookmarks:
-        x += 1
-
         filename = re.sub(r'[\s\n\r]+', " ", bookmark['description'])
-        filename = filter(lambda x: x in string.printable, filename)
+        filename = filter(
+            lambda x: x in (string.ascii_letters + string.digits + "-_.() "),
+            filename,
+        )
         filename = filename[:250]
+
+        if not filename:
+            continue
+
         filename += ".url"
 
         if path:
-            if not path.endswith("\\"):
-                path += "\\"
+            if platform.system() == "Windows":
+                if not path.endswith("\\"):
+                    path += "\\"
+            else:
+                if not path.endswith("/"):
+                    path += "/"
 
             filename = path + filename
 
         with open(filename, 'wb') as f:
-            print filename
             f.write("[InternetShortcut]\r\nURL=" + bookmark['href'])
-
-        if x > 10:
-            break
