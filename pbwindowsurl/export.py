@@ -18,7 +18,7 @@ def export(auth_token, path=None):
             lambda x: x in (string.ascii_letters + string.digits + "-_.() "),
             filename,
         )
-        filename = filename[:250]
+        filename = filename[:200]
 
         if not filename:
             continue
