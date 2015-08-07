@@ -1,10 +1,14 @@
-import os
-import sys
-
 from pbwindowsurl import export
 
 
+def main(auth_token, path):
+    export.export(auth_token, path)
+
+
 if __name__ == '__main__':
+    import os
+    import sys
+
     auth_token = sys.argv[1]
 
     try:
@@ -12,4 +16,4 @@ if __name__ == '__main__':
     except IndexError:
         path = os.getcwd()
 
-    export.export(auth_token, path)
+    main(auth_token, path)

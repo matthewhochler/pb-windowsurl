@@ -4,7 +4,7 @@ import urllib2
 
 
 def url_with_params(url, params):
-    return url + "?" + urllib.urlencode(params)
+    return url + '?' + urllib.urlencode(params)
 
 
 class PinboardError(Exception):
@@ -12,7 +12,7 @@ class PinboardError(Exception):
 
 
 class Pinboard(object):
-    BASE_URL = "https://api.pinboard.in/v1"
+    BASE_URL = 'https://api.pinboard.in/v1'
     OK_CODE = 200
 
     def __init__(self, auth_token):
@@ -27,7 +27,7 @@ class Pinboard(object):
         if params:
             req_params.update(params)
 
-        req_url = "{base_url}{resource_path}".format(
+        req_url = '{base_url}{resource_path}'.format(
             base_url=self.BASE_URL,
             resource_path=resource_path,
         )
@@ -40,4 +40,4 @@ class Pinboard(object):
         return json.loads(resp.read())
 
     def bookmarks(self):
-        return self.call("/posts/all")
+        return self.call('/posts/all')

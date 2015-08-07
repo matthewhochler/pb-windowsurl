@@ -6,7 +6,8 @@ import string
 
 from .pinboard import Pinboard
 
-SAFE_CHARACTERS = (string.ascii_letters + string.digits + "-_.() ")
+
+SAFE_CHARACTERS = (string.ascii_letters + string.digits + '-_.() ')
 
 
 def export(auth_token, path=None):
