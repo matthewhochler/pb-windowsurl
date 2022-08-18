@@ -18,14 +18,14 @@ def export(auth_token, path=None):
     for bookmark in bookmarks:
         filename = bookmark['description']
         filename = re.sub(r'[\s\n\r]+', " ", filename)
-        filename = filter(lambda x: x in SAFE_CHARACTERS, filename)
+        filename = ''.join(filter(lambda x: x in SAFE_CHARACTERS, filename))
 
         if not filename:
             continue
 
         tags = bookmark['tags']
-        tags = filter(lambda x: x in SAFE_CHARACTERS, tags)
-        tags = ' [' + tags + ']'
+        tags = list(filter(lambda x: x in SAFE_CHARACTERS, tags))
+        tags = f' [{tags}]'
 
         filename = filename[:210 - len(tags)]
         filename += tags
@@ -35,5 +35,5 @@ def export(auth_token, path=None):
         if path:
             os.chdir(path)
 
-        with open(filename, 'wb') as f:
-            f.write("[InternetShortcut]\r\nURL=" + bookmark['href'])
+        with open(filename, 'w') as f:
+            f.write(f"[InternetShortcut]\r\nURL={bookmark['href']}")

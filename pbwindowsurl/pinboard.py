@@ -1,10 +1,10 @@
 import json
-import urllib
-import urllib2
+import urllib.parse
+import urllib.request
 
 
 def url_with_params(url, params):
-    return url + '?' + urllib.urlencode(params)
+    return url + '?' + urllib.parse.urlencode(params)
 
 
 class PinboardError(Exception):
@@ -32,7 +32,7 @@ class Pinboard(object):
             resource_path=resource_path,
         )
 
-        resp = urllib2.urlopen(url_with_params(req_url, req_params))
+        resp = urllib.request.urlopen(url_with_params(req_url, req_params))
 
         if resp.code != self.OK_CODE:
             raise PinboardError(resp.msg)
